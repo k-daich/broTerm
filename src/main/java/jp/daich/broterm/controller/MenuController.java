@@ -1,5 +1,10 @@
 package jp.daich.broterm.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,12 +29,18 @@ public class MenuController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(Model model) {
+    public ResponseEntity login(Model model) {
         LogUtil.startLog();
-        // 入力フォームで取り扱うオブジェクトを設定
-        model.addAttribute("loginRequest", new LoginRequestDto());
+        // 入力フォームで取り扱うオブジェクトを取得
+        LoginRequestDto dto = (LoginRequestDto)model.getAttribute("loginRequest");
+        Map<String, String> body = new HashMap<String, String>(){
+            {
+                put("hostName", dto.getHostName());
+            }
+        };
+
         LogUtil.endLog();
-        return "login";
+        return new ResponseEntity<Map>(body, HttpStatus.OK);
     }
 
 }

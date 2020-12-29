@@ -8,16 +8,19 @@
 
 <body>
     <h3>Servers</h3>
-    <form th:action="@{/menu}" th:object="${loginRequest}" method="post">
-        <!-- textarea -->
+    <form th:action="@{/login}" th:object="${loginRequest}" method="post">
         <div class="form-group">
             <label class="select-label" for="inputSelect1">[選択]ログイン先</label>
             <select class="form-select" id="login-select" name="farea"
-                th:field="*{consoleNickname}">
+                th:field="*{hostName}">
             </select>
-            <span th:if="${#fields.hasErrors('consoleNickname')}" th:errors="*{consoleNickname}"
-                class="help-block">error!</span>
+            <input type="text" th:field="*{ip}">
+            <input type="text" th:field="*{port}">
+            <input type="text" th:field="*{hostName}">
+            <!-- <span th:if="${#fields.hasErrors('hostName')}" th:errors="*{hostName}"
+                class="help-block">error!</span> -->
         </div>
+        <button type="submit" class="btn btn-default">ログイン</button>
     </form>
     <br>
     <h3>コマンド結果</h3>
