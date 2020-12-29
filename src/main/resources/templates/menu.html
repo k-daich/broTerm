@@ -1,0 +1,38 @@
+<html>
+
+<head>
+    <title>broTerm menu</title>
+    <link rel="stylesheet" th:href="@{/css/Normalize.css}">
+    <link rel="stylesheet" th:href="@{/css/menu.css}">
+</head>
+
+<body>
+    <h3>Servers</h3>
+    <form th:action="@{/menu}" th:object="${loginRequest}" method="post">
+        <!-- textarea -->
+        <div class="form-group">
+            <label class="select-label" for="inputSelect1">[選択]ログイン先</label>
+            <select class="form-select" id="login-select" name="farea"
+                th:field="*{consoleNickname}">
+            </select>
+            <span th:if="${#fields.hasErrors('consoleNickname')}" th:errors="*{consoleNickname}"
+                class="help-block">error!</span>
+        </div>
+    </form>
+    <br>
+    <h3>コマンド結果</h3>
+    <table class="console">
+        <tr th:each="line : ${lines}">
+            <span th:if="${line.isInpu}">
+                <td th:text="${ps}"></td>
+                <td th:text="${command}"></td>
+            </span>
+            <span th:if="${line.isInpu}">
+                <td aria-colspan="2" th:text="${commandResult}"></td>
+            </span>
+        </tr>
+    </table>
+</body>
+<script type="text/javascript" th:src="@{/js/jquery-3.4.1.js}"></script>
+<script type="text/javascript" th:src="@{/js/menu.js}"></script>
+</html>
