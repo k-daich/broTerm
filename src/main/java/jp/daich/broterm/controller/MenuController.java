@@ -33,6 +33,7 @@ public class MenuController {
         LogUtil.startLog();
         // 入力フォームで取り扱うオブジェクトを取得
         LoginRequestDto dto = (LoginRequestDto)model.getAttribute("loginRequest");
+        LogUtil.debug(dto.toString());
         Map<String, String> body = new HashMap<String, String>(){
             {
                 put("hostName", dto.getHostName());

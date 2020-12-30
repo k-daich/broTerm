@@ -16,7 +16,7 @@ public class LoginRequestDto implements Serializable {
     // 入力：IP
     private String ip;
     // 入力：ポート番号
-    private int port;
+    private int port = 2;
     // 入力：ホスト名
     private String hostName;
     // 入力：パスワード
@@ -60,5 +60,9 @@ public class LoginRequestDto implements Serializable {
 
     public void setPort(int port) {
         this.port = port;
+    }
+
+    public String toString() {
+        return this.hostName + "/" + this.ip + "/" + this.port;
     }
 }
