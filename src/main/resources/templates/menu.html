@@ -7,16 +7,25 @@
 </head>
 
 <body>
-    <h3>Servers</h3>
+    <h3 class="page-title">Web Console</h3>
     <form th:action="@{/login}" th:object="${loginRequest}" method="post">
         <div class="form-group">
             <label class="select-label" for="inputSelect1">[選択]ログイン先</label>
-            <select class="form-select" id="login-select" name="farea"
-                th:field="*{hostName}">
-            </select>
-            <input type="text" th:field="*{ip}">
-            <input type="text" th:field="*{port}">
-            <input type="text" th:field="*{hostName}">
+            <select class="form-select" id="login-select" name="farea" th:field="*{hostName}">
+            </select><br />
+            <a class="btn solid-btn">
+                <span class="solid-btn-front">jdap@daich</span>
+                <i class="fas fa-angle-right fa-position-right"></i>
+            </a>
+        </div>
+        <button type="submit" class="btn btn-default">ログイン</button>
+    </form>
+    <form th:action="@{/login}" th:object="${loginRequest}" method="post">
+        <div class="form-group">
+            <label class="text-label" for="inputText1">[入力]ログイン先</label>
+            <input type="text" th:field="*{ip}"><br />
+            <input type="text" th:field="*{port}"><br />
+            <input type="text" th:field="*{hostName}"><br />
             <!-- <span th:if="${#fields.hasErrors('hostName')}" th:errors="*{hostName}"
                 class="help-block">error!</span> -->
         </div>
@@ -38,4 +47,5 @@
 </body>
 <script type="text/javascript" th:src="@{/js/jquery-3.4.1.js}"></script>
 <script type="text/javascript" th:src="@{/js/menu.js}"></script>
+
 </html>
