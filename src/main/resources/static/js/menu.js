@@ -14,8 +14,16 @@ $(document).ready(function () {
  */
 function addSelectOptions() {
     console.log('[menu.js addSelectOptions] start');
-    for (let _serverName in SERVERS) {
-        $('#login-select').append('<option value="' + _serverName + '">' + SERVERS[_serverName].hostname + '@' + SERVERS[_serverName].user + '</option>');
+    for (let _hostName in SERVERS) {
+        $('#server-btn-area').append('<div>' + _hostName + '(' + SERVERS[_hostName].IP + ')</div><br/>');
+        // $('#login-select').append('<option value="' + _serverName + '">' + SERVERS[_serverName].hostname + '@' + SERVERS[_serverName].user + '</option>');
+        SERVERS[_hostName].users.forEach(function(elem, index) {
+            $('#server-btn-area').append(
+                '<a class="btn solid-btn">\
+                <span class="solid-btn-front">' + elem + '</span>\
+                <i class="fas fa-angle-right fa-position-right"></i>\
+            </a>');
+        });
     }
     console.log('[menu.js addSelectOptions] end');
 }

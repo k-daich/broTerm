@@ -9,10 +9,10 @@
 <body>
     <h3 class="page-title">Web Console</h3>
     <form th:action="@{/login}" th:object="${loginRequest}" method="post">
-        <div class="form-group">
+        <div id="server-btn-area" class="form-group">
             <label class="select-label" for="inputSelect1">[選択]ログイン先</label>
-            <select class="form-select" id="login-select" name="farea" th:field="*{hostName}">
-            </select><br />
+            <!-- <select class="form-select" id="login-select" name="farea" th:field="*{hostName}">
+            </select><br /> -->
             <a class="btn solid-btn">
                 <span class="solid-btn-front">jdap@daich</span>
                 <i class="fas fa-angle-right fa-position-right"></i>
