@@ -7,7 +7,7 @@ public class ModelAttributeName {
      */
     private ModelAttributeName(){}
 
-    public static final String LOGIN_REQUEST_SELECT_FORM = "loginRequestSelectForm";
-    public static final String LOGIN_REQUEST_TEXT_FORM = "loginRequestTextForm";
+    public static final String LOGIN_SELECT_FORM = "loginSelectForm";
+    public static final String LOGIN_TEXT_FORM = "loginTextForm";
 
 }

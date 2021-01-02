@@ -8,19 +8,31 @@
 
 <body>
     <h3 class="page-title">Web Console</h3>
-    <form th:action="@{/loginFromTextForm}" th:object="${loginRequestForm}" method="post">
+    <form id="loginFromTextForm" th:object="${loginTextForm}">
         <div class="form-group">
-            <label class="text-label" for="inputText1">ログイン先[入力方式]</label>
-            <input type="text" th:field="*{port}"><br />
-            <input type="text" th:field="*{ip}"><br />
-            <input type="text" th:field="*{hostName}"><br />
-            <input type="password" th:field="*{hostName}"><br />
-            <!-- <span th:if="${#fields.hasErrors('hostName')}" th:errors="*{hostName}"
-                class="help-block">error!</span> -->
+            <label class="text-label" for="inputText1">ログイン先[入力方式]</label><br />
+            <div class="text-form">
+                <ruby>
+                    <rb><input type="text" th:field="*{ip}"></rb>
+                    <rt>IPアドレス</rt>
+                </ruby>
+                <ruby>
+                    <rb><input type="text" th:field="*{port}"></rb>
+                    <rt>ポート番号</rt>
+                </ruby>
+                <ruby>
+                    <rb><input type="text" th:field="*{hostName}"></rb>
+                    <rt>ホスト名</rt>
+                </ruby>
+                <ruby>
+                    <rb><input type="password" th:field="*{passwd}"></rb>
+                    <rt>パスワード</rt>
+                </ruby>
+            </div>
         </div>
-        <button type="submit" class="btn btn-default">ログイン</button>
+        <button id="loginTextFormButton" class="btn btn-default">ログイン</button>
     </form>
-    <form th:action="@{/loginFromSelectForm}" th:object="${loginRequestForm}" method="post">
+    <form th:action="@{/loginFromSelectForm}" th:object="${loginSelectForm}" method="post">
         <div id="server-btn-area" class="form-group">
             <label class="select-label" for="inputSelect1">ログイン先[選択方式]</label>
             <!-- here is added by menu.js -->

@@ -6,8 +6,33 @@ $(document).ready(function () {
         // selectボックスの選択肢の作成を行う
         addSelectOptions();
     });
+    // ログインボタンへのイベントリスナーの追加
+    addLoginButtonEventListener();
     console.log('[menu.js onload] end');
 });
+
+/**
+ * ログインボタン押下時イベントを登録する
+ */
+function addLoginButtonEventListener() {
+    $('#loginTextFormButton').on('click', function () {
+        console.log('[menu.js ajax] start');
+        // 通信実行
+        $.ajax({
+            type: "post",
+            url: "http://localhost:8080/loginFromTextForm",
+            // フォームデータを直列化させて設定する
+            data: $("#loginFromTextForm").serialize(),
+            contentType: 'application/json',
+            dataType: "json",
+            success: function (json_data) {
+                // 成功時の処理
+                console.log('[menu.js ajax] success');
+            }
+        });
+        console.log('[menu.js ajax] end');
+    });
+}
 
 /**
  * selectボックスの選択肢を作成する
@@ -17,7 +42,7 @@ function addSelectOptions() {
     for (let _hostName in SERVERS) {
         $('#server-btn-area').append('<div>' + _hostName + '(' + SERVERS[_hostName].IP + ')</div><br/>');
         // $('#login-select').append('<option value="' + _serverName + '">' + SERVERS[_serverName].hostname + '@' + SERVERS[_serverName].user + '</option>');
-        SERVERS[_hostName].users.forEach(function(elem, index) {
+        SERVERS[_hostName].users.forEach(function (elem, index) {
             $('#server-btn-area').append(
                 '<a class="btn solid-btn">\
                 <span class="solid-btn-front">' + elem + '</span>\

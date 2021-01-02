@@ -21,6 +21,14 @@ body {
     background: var(--baseColor_bg);
 }
 
+.text-form {
+    padding-left: 5vw;
+}
+
+ruby {
+    ruby-align: left;
+}
+
 .page-title {
     font-size: 1.4rem;
     color: white;
