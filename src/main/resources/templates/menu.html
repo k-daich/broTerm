@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 <head>
@@ -13,26 +14,29 @@
             <label class="text-label" for="inputText1">ログイン先[入力方式]</label><br />
             <div class="text-form">
                 <ruby>
-                    <rb><input type="text" th:field="*{ip}"></rb>
+                    <rb><input class="textform-ip" size="15" max-length="15" type="text" th:field="*{ip}"></rb>
                     <rt>IPアドレス</rt>
                 </ruby>
                 <ruby>
-                    <rb><input type="text" th:field="*{port}"></rb>
+                    <rb><input class="textform-port" size="5" max-length="5" type="text" th:field="*{port}"></rb>
                     <rt>ポート番号</rt>
                 </ruby>
                 <ruby>
-                    <rb><input type="text" th:field="*{hostName}"></rb>
+                    <rb><input class="textform-hostName" size="12" max-length="32" type="text" th:field="*{hostName}">
+                    </rb>
                     <rt>ホスト名</rt>
                 </ruby>
                 <ruby>
-                    <rb><input type="password" th:field="*{passwd}"></rb>
+                    <rb><input class="textform-passwd" size="12" max-length="32" type="password" th:field="*{passwd}">
+                    </rb>
                     <rt>パスワード</rt>
                 </ruby>
             </div>
         </div>
         <button id="loginTextFormButton" class="btn btn-default">ログイン</button>
     </form>
-    <form th:action="@{/loginFromSelectForm}" th:object="${loginSelectForm}" method="post">
+    <form id="loginFromSelectForm" th:object="${loginTextForm}">
+        <!-- <form th:action="@{/loginFromSelectForm}" th:object="${loginSelectForm}" method="post"> -->
         <div id="server-btn-area" class="form-group">
             <label class="select-label" for="inputSelect1">ログイン先[選択方式]</label>
             <!-- here is added by menu.js -->

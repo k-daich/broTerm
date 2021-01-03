@@ -6,10 +6,24 @@ $(document).ready(function () {
         // selectボックスの選択肢の作成を行う
         addSelectOptions();
     });
-    // ログインボタンへのイベントリスナーの追加
+    // フォーム表示/非表示制御のイベントリスナー追加
+    addFormVisibilityEventListener();
+    // ログインボタンによるAjax通信のイベントリスナー追加
     addLoginButtonEventListener();
     console.log('[menu.js onload] end');
 });
+
+/**
+ * ログインボタン押下時イベントを登録する
+ */
+function addFormVisibilityEventListener() {
+    $('#loginFromTextForm').on('click', function () {
+        $('#loginFromSelectForm').css("display", "none");
+    });
+    $('#loginFromSelectForm').on('click', function () {
+        $('#loginFromTextForm').css("display", "none");
+    });
+}
 
 /**
  * ログインボタン押下時イベントを登録する
