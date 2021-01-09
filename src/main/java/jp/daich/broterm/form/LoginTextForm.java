@@ -10,7 +10,7 @@ public class LoginTextForm {
     // 入力：IP
     private String ip;
     // 入力：ポート番号
-    private int port;
+    private int port = 22;
     // 入力：ホスト名
     private String hostName;
     // 入力：パスワード

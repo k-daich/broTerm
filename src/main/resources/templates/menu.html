@@ -45,17 +45,7 @@
     </form>
     <br>
     <h3>コマンド結果</h3>
-    <table class="console">
-        <tr th:each="line : ${lines}">
-            <span th:if="${line.isInpu}">
-                <td th:text="${ps}"></td>
-                <td th:text="${command}"></td>
-            </span>
-            <span th:if="${line.isInpu}">
-                <td aria-colspan="2" th:text="${commandResult}"></td>
-            </span>
-        </tr>
-    </table>
+    <div id="console-area"></div>
 </body>
 <script type="text/javascript" th:src="@{/js/jquery-3.4.1.js}"></script>
 <script type="text/javascript" th:src="@{/js/menu.js}"></script>

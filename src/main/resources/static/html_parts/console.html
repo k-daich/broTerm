@@ -1,0 +1,12 @@
+<table id="init-0" class="console">
+    <tr th:each="line : ${lines}">
+        <span th:if="${line.isInpu}">
+            <td th:text="${ps}"></td>
+            <td th:text="${command}"></td>
+        </span>
+        <span th:if="${line.isInpu}">
+            <td aria-colspan="2" th:text="${commandResult}"></td>
+        </span>
+    </tr>
+</table>
+<script type="text/javascript" src="/js/setConsoleId.js"></script>

@@ -15,7 +15,7 @@ html {
 body {
     color: var(--baseColor);
     font-family: "ＭＳ 明朝", sans-serif;
-    font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+    font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", "Osaka", "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
     /*background : -webkit-radial-gradient(center top, ellipse cover, rgba(32,74,135,0.8) 20%,rgba(0,0,0,0));*/
     /*background-image : radial-gradient(ellipse at center top, rgba(32,74,135,0.8) 20%, rgba(0,0,0,0) 100%);*/
     background: var(--baseColor_bg);
@@ -25,8 +25,22 @@ body {
     padding-left: 5vw;
 }
 
-.loginFromTextForm {
-    visibility: visible;
+@keyframes fadeout {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+.hoge {
+    display: block;
+}
+
+.fadeout {
+    /* display: none; */
+    animation: fadeout 1s linear 0s;
 }
 
 rt {
@@ -64,8 +78,8 @@ table {
 /** ↓↓cutom button style↓↓ */
 
 /* @import "https://use.fontawesome.com/releases/v5.13.0/css/all.css"; */
-@import "./fontawesome_all.css";
 
+@import "./fontawesome_all.css";
 *, *:before, *:after {
     -webkit-box-sizing: inherit;
     box-sizing: inherit;
@@ -94,6 +108,7 @@ table {
 }
 
 /** 立体ボタン */
+
 .solid-btn {
     margin-bottom: 1rem;
     padding: 0;
@@ -125,6 +140,7 @@ table {
 }
 
 /** ボタン先頭の□表示 */
+
 .solid-btn:after {
     font-family: "Font Awesome 5 Free";
     font-size: 1.5rem;
@@ -152,6 +168,7 @@ table {
 }
 
 /** fontawesomeについて */
+
 .fa-position-left {
     position: absolute;
     top: calc(50% - 0.5em);
@@ -197,4 +214,5 @@ table {
 .solid-btn:active:after {
     content: "\f2b6";
 }
+
 /** ↑↑cutom button style↑↑ */

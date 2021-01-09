@@ -1,3 +1,5 @@
+var consoleIdSeq = 0;
+
 // DOM読み込み時実行処理
 $(document).ready(function () {
     console.log('[menu.js onload] start');
@@ -11,14 +13,25 @@ $(document).ready(function () {
     // ログインボタンによるAjax通信のイベントリスナー追加
     addLoginButtonEventListener();
     console.log('[menu.js onload] end');
+    // コンソール表示エリアHTMLの読み込み
+    addConsole();
 });
+
+/**
+ * 
+ */
+function addConsole() {
+    // コンソール表示エリアHTMLの読み込み
+    $("#console-area").load("/html_parts/console.html");
+}
 
 /**
  * ログインボタン押下時イベントを登録する
  */
 function addFormVisibilityEventListener() {
     $('#loginFromTextForm').on('click', function () {
-        $('#loginFromSelectForm').css("display", "none");
+        // $('#loginFromSelectForm').css("display", "none");
+        $('#loginFromSelectForm').addClass("fadeout");
     });
     $('#loginFromSelectForm').on('click', function () {
         $('#loginFromTextForm').css("display", "none");
