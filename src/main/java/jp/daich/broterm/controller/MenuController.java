@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -17,9 +18,9 @@ import jp.daich.broterm.form.LoginSelectForm;
 import jp.daich.broterm.form.LoginTextForm;
 import jp.daich.broterm.jsch.session.SshSessionHolder;
 import jp.daich.broterm.util.LogUtil;
+import jp.daich.broterm.util.StringUtils;
 
 @Controller
-@SessionAttributes(types = LoginTextForm.class)
 public class MenuController {
 
     public MenuController() {
@@ -53,10 +54,12 @@ public class MenuController {
     }
 
     @RequestMapping(value = "/loginFromTextForm", method = RequestMethod.POST)
-    public ResponseEntity loginFromTextForm(@ModelAttribute(ModelAttributeName.LOGIN_TEXT_FORM) LoginTextForm loginTextForm,
-            Model model) {
+    public ResponseEntity loginFromTextForm(@RequestBody LoginTextForm loginTextForm) {
         LogUtil.startLog();
         LogUtil.debug(loginTextForm.toString());
+
+        // 入力フォームの内容チェック
+        assertFormInfo(loginTextForm);
 
         // SSH接続の実施
         int sessionSeq = SshSessionHolder.connect(loginTextForm.getIp(), loginTextForm.getPort(),
@@ -72,6 +75,34 @@ public class MenuController {
         return new ResponseEntity<Map>(resBody, HttpStatus.OK);
     }
 
+    private void assertFormInfo(LoginTextForm loginTextForm) {
+        // 空項目チェック
+        if (StringUtils.isEmpty(loginTextForm.getIp()) || StringUtils.isEmpty(loginTextForm.getHostName())
+                || StringUtils.isEmpty(loginTextForm.getPasswd())) {
+            throw new RuntimeException("LoginForm empty Error. IP=[" + loginTextForm.getIp() + "], HostName=["
+                    + loginTextForm.getHostName() + "], Passwd=[not print]");
+        }
+
+        // IPアドレスをドット区切りで配列化する
+        String[] ipOctets = loginTextForm.getIp().split("\\.");
+        if (ipOctets.length != 4) {
+            throw new RuntimeException("Invalid Form @ IpAdress. ip=[" + loginTextForm.getIp() + "],ip octet length = ["+ ipOctets.length + "]");
+        }
+
+        for (String ipOctet : ipOctets) {
+            try {
+                // IPアドレスの各オクテットごとに０未満256以上である場合は異常値のためエラー
+                if (Integer.parseInt(ipOctet) < 0 || Integer.parseInt(ipOctet) >= 256) {
+                    throw new RuntimeException("Invalid Form @ IpAdress. ip=[" + loginTextForm.getIp() + "]");
+                }
+            } catch (NumberFormatException ex) {
+                // IPアドレスの各オクテットが数字でない場合はエラー
+                throw new RuntimeException("Invalid Form @ IpAdress. ip=[" + loginTextForm.getIp() + "]", ex);
+            }
+        }
+
+    }
+
     @RequestMapping(value = "/loginFromSelectForm", method = RequestMethod.POST)
     public ResponseEntity loginFromSelectForm(Model model) {
         LogUtil.startLog();
@@ -83,12 +114,6 @@ public class MenuController {
                 put("hostName", dto.getHostName());
             }
         };
-
-        // SSH接続の実施
-        // int sessionSeq = SshSessionHolder.connect(request.getIp(), request.getPort(),
-        // request.getHostName(), request.getPasswd());
-        // SSHセッションIDの設定
-        // model.addAttribute("sessionIdSeq", sessionSeq);
 
         LogUtil.endLog();
         return new ResponseEntity<Map>(body, HttpStatus.OK);

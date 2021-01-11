@@ -2,47 +2,47 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 <head>
-    <title>broTerm menu</title>
+    <title>broTerm</title>
+    <link rel="shortcut icon" th:href="@{/image/favicon.ico}">
     <link rel="stylesheet" th:href="@{/css/Normalize.css}">
     <link rel="stylesheet" th:href="@{/css/menu.css}">
 </head>
 
 <body>
     <h3 class="page-title">Web Console</h3>
-    <form id="loginFromTextForm" th:object="${loginTextForm}">
-        <div class="form-group">
+    <div id="login-forms">
+        <form id="loginTextForm">
             <label class="text-label" for="inputText1">ログイン先[入力方式]</label><br />
             <div class="text-form">
                 <ruby>
-                    <rb><input class="textform-ip" size="15" max-length="15" type="text" th:field="*{ip}"></rb>
+                    <rb><input class="textform-ip" size="15" max-length="15" type="text" name="ip" id="ip"></rb>
                     <rt>IPアドレス</rt>
                 </ruby>
                 <ruby>
-                    <rb><input class="textform-port" size="5" max-length="5" type="text" th:field="*{port}"></rb>
+                    <rb><input class="textform-port" size="5" max-length="5" type="text" name="port" id="port" value="22"></rb>
                     <rt>ポート番号</rt>
                 </ruby>
                 <ruby>
-                    <rb><input class="textform-hostName" size="12" max-length="32" type="text" th:field="*{hostName}">
+                    <rb><input class="textform-hostName" size="12" max-length="32" type="text" name="hostName" id="hostName">
                     </rb>
                     <rt>ホスト名</rt>
                 </ruby>
                 <ruby>
-                    <rb><input class="textform-passwd" size="12" max-length="32" type="password" th:field="*{passwd}">
+                    <rb><input class="textform-passwd" size="12" max-length="32" type="password" name="passwd" id="passwd">
                     </rb>
                     <rt>パスワード</rt>
                 </ruby>
             </div>
-        </div>
-        <button id="loginTextFormButton" class="btn btn-default">ログイン</button>
-    </form>
-    <form id="loginFromSelectForm" th:object="${loginTextForm}">
-        <!-- <form th:action="@{/loginFromSelectForm}" th:object="${loginSelectForm}" method="post"> -->
-        <div id="server-btn-area" class="form-group">
-            <label class="select-label" for="inputSelect1">ログイン先[選択方式]</label>
-            <!-- here is added by menu.js -->
-        </div>
-        <button type="submit" class="btn btn-default">ログイン</button>
-    </form>
+            <button type="button" id="loginTextFormButton" class="btn btn-default">ログイン</button>
+        </form>
+        <form id="loginFromSelectForm">
+            <div id="server-btn-area" class="form-group">
+                <label class="select-label" for="inputSelect1">ログイン先[選択方式]</label>
+                <!-- here is added by menu.js -->
+            </div>
+            <button type="button" class="btn btn-default">ログイン</button>
+        </form>
+    </div>
     <br>
     <h3>コマンド結果</h3>
     <div id="console-area"></div>

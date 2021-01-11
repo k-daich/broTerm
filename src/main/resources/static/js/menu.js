@@ -8,13 +8,9 @@ $(document).ready(function () {
         // selectボックスの選択肢の作成を行う
         addSelectOptions();
     });
-    // フォーム表示/非表示制御のイベントリスナー追加
-    addFormVisibilityEventListener();
     // ログインボタンによるAjax通信のイベントリスナー追加
     addLoginButtonEventListener();
     console.log('[menu.js onload] end');
-    // コンソール表示エリアHTMLの読み込み
-    addConsole();
 });
 
 /**
@@ -28,37 +24,77 @@ function addConsole() {
 /**
  * ログインボタン押下時イベントを登録する
  */
-function addFormVisibilityEventListener() {
-    $('#loginFromTextForm').on('click', function () {
-        // $('#loginFromSelectForm').css("display", "none");
-        $('#loginFromSelectForm').addClass("fadeout");
-    });
-    $('#loginFromSelectForm').on('click', function () {
-        $('#loginFromTextForm').css("display", "none");
-    });
-}
-
-/**
- * ログインボタン押下時イベントを登録する
- */
 function addLoginButtonEventListener() {
     $('#loginTextFormButton').on('click', function () {
         console.log('[menu.js ajax] start');
+
         // 通信実行
         $.ajax({
             type: "post",
             url: "http://localhost:8080/loginFromTextForm",
-            // フォームデータを直列化させて設定する
-            data: $("#loginFromTextForm").serialize(),
+            // フォーム情報をJSON形式に変換してPOST情報に設定する
+            data: JSON.stringify(createFromJsonData($('#loginTextForm'))),
             contentType: 'application/json',
             dataType: "json",
-            success: function (json_data) {
+            cache: false,
+            async: true
+        })
+            .done(function (data) {
                 // 成功時の処理
+                // ログ出力
+                alert('[menu.js ajax] success');
+
+                // ログインフォームをフェードアウト
+                $('#login-forms').addClass("fadeout");
+                // コンソール表示エリアHTMLの読み込み
+                addConsole();
+                // 成功時の処理
+                // ログ出力
                 console.log('[menu.js ajax] success');
-            }
-        });
-        console.log('[menu.js ajax] end');
+
+                // ログインフォームをフェードアウト
+                $('#login-forms').addClass("fadeout");
+                // コンソール表示エリアHTMLの読み込み
+                addConsole();
+
+            })
+            .fail(function () {
+                // 通信が失敗したときの処理
+                // ログ出力
+                alert('[menu.js ajax] fail');
+            })
+            .always(function () {
+                // 通信が完了したときの処理
+                // ログ出力
+                alert('[menu.js ajax] always');
+            });
+        // sleep(10000);
+        console.log('[menu.js ajax] end. json_data [' + json_data + ']');
     });
+}
+
+/**
+ * フォームデータをJSON形式に変換する
+ * @param {*} formId formタグのid
+ */
+function createFromJsonData(form) {
+    var formdata = form.serializeArray();
+    var json_data = {};
+    $(formdata).each(function (index, obj) {
+        json_data[obj.name] = obj.value;
+    });
+    console.log('$(formId) : ', form);
+    console.log('formdata : ', formdata);
+    console.log('json_data : ', json_data);
+    return json_data;
+}
+
+// ビジーwaitを使う方法
+function sleep(waitMsec) {
+    var startMsec = new Date();
+
+    // 指定ミリ秒間だけループさせる（CPUは常にビジー状態）
+    while (new Date() - startMsec < waitMsec);
 }
 
 /**
