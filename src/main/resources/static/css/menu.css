@@ -6,23 +6,31 @@ html {
 
 :root {
     --baseColor: rgba(238, 238, 238, 1);
-    --baseColor_bg: rgb(23, 24, 28);
-    --baseColor_border: rgb(88, 88, 88);
+    --baseColor_bg: #5a3501;
+    --baseColor_border: rgb(126, 78, 78);
     --btnColor_yellow_top: rgb(256, 241, 0);
     --btnColor_yellow_shadow: rgb(256, 241, 0);
+    --form_bg: #C75000;
 }
 
 body {
     color: var(--baseColor);
     font-family: "ＭＳ 明朝", sans-serif;
     font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", "Osaka", "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
-    /*background : -webkit-radial-gradient(center top, ellipse cover, rgba(32,74,135,0.8) 20%,rgba(0,0,0,0));*/
-    /*background-image : radial-gradient(ellipse at center top, rgba(32,74,135,0.8) 20%, rgba(0,0,0,0) 100%);*/
     background: var(--baseColor_bg);
 }
 
 .text-form {
-    padding-left: 5vw;
+    margin-left: 5vw;
+    padding: 1vh 2vw;
+    width: 70vw;
+    background-color: var(--form_bg);
+}
+
+#loginTextForm input {
+    background-color: var(--form_bg);
+    border: none;
+    border-bottom: solid 2px #999;
 }
 
 @keyframes fadeout {
@@ -86,12 +94,12 @@ table {
 }
 
 .btn {
-    font-size: 1.2rem;
+    font-size: 0.8rem;
     font-weight: 700;
     line-height: 1.5;
     position: relative;
     display: inline-block;
-    padding: 1rem 4rem;
+    padding: 1rem 3rem;
     cursor: pointer;
     -webkit-user-select: none;
     -moz-user-select: none;
