@@ -4,20 +4,34 @@ html {
     font-size: 0.6rem;
 }
 
+#bg-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--baseColor_bg);
+    z-index: -1;
+}
+
 :root {
     --baseColor: rgba(238, 238, 238, 1);
-    --baseColor_bg: #5a3501;
+    --baseColor_bg: rgb(2, 72, 119);
+    background-image: url(/image/mainBg_black.jpg);
     --baseColor_border: rgb(126, 78, 78);
     --btnColor_yellow_top: rgb(256, 241, 0);
     --btnColor_yellow_shadow: rgb(256, 241, 0);
-    --form_bg: #C75000;
+    --form_bg: rgb(199, 80, 0);
+    --form_fg: rgba(255, 255, 255, 0.1);
 }
 
 body {
+    position: absolute;
+    top: 0;
+    left: 0;
     color: var(--baseColor);
     font-family: "ＭＳ 明朝", sans-serif;
     font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", "Osaka", "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
-    background: var(--baseColor_bg);
 }
 
 .text-form {
@@ -28,9 +42,23 @@ body {
 }
 
 #loginTextForm input {
-    background-color: var(--form_bg);
+    background-color: var(--form_fg);
     border: none;
     border-bottom: solid 2px #999;
+    line-height: 3rem;
+    font-size: 0.8rem;
+    color: var(--baseColor);
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px var(--form_bg) inset;
+}
+
+/** 自動補完で背景色が白くなることを無効化 */
+
+input:-internal-autofill-selected {
+    background-color: var(--form_bg) !important;
+    color: var(--baseColor) !important;
 }
 
 @keyframes fadeout {

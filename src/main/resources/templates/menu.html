@@ -6,16 +6,18 @@
     <link rel="shortcut icon" th:href="@{/image/favicon.ico}">
     <link rel="stylesheet" th:href="@{/css/Normalize.css}">
     <link rel="stylesheet" th:href="@{/css/menu.css}">
+
 </head>
 
 <body>
+    <canvas id="bg-canvas"></canvas>
     <h3 class="page-title">Web Console</h3>
     <div id="login-forms">
         <div class="text-form">
             <form id="loginTextForm">
                 <label class="text-label" for="inputText1">ログイン先[入力方式]</label><br />
                 <ruby>
-                    <rb><input class="textform-ip" size="15" max-length="15" type="text" name="ip" id="ip"></rb>
+                    <rb><input class="loginTextForm" size="15" max-length="15" type="text" name="ip" id="ip"></rb>
                     <rt>IPアドレス</rt>
                 </ruby>
                 <ruby>
@@ -52,5 +54,6 @@
 </body>
 <script type="text/javascript" th:src="@{/js/jquery-3.4.1.js}"></script>
 <script type="text/javascript" th:src="@{/js/menu.js}"></script>
+<script type="text/javascript" th:src="@{/js/bg_canvas.js}"></script>
 
 </html>
