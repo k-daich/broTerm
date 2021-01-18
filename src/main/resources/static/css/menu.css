@@ -22,7 +22,7 @@ html {
     --btnColor_yellow_top: rgb(256, 241, 0);
     --btnColor_yellow_shadow: rgb(256, 241, 0);
     --form_bg: rgb(199, 80, 0);
-    --form_fg: rgba(255, 255, 255, 0.1);
+    --form_fg: rgb(18, 96, 148);
 }
 
 body {
@@ -38,7 +38,6 @@ body {
     margin-left: 5vw;
     padding: 1vh 2vw;
     width: 70vw;
-    background-color: var(--form_bg);
 }
 
 #loginTextForm input {
@@ -51,14 +50,23 @@ body {
 }
 
 input:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0px 1000px var(--form_bg) inset;
+    -webkit-box-shadow: 0 0 0px 1000px var(--form_fg) inset;
+    -webkit-text-fill-color: var(--baseColor);
+    /* ここで指定しているbackground-colorは黄色い背景色のことです */
+    -webkit-transition: background-color 9999s;
+    -webkit-transition: color 9999s;
+    transition: background-color 9999s;
+    transition: color 9999s;
 }
 
 /** 自動補完で背景色が白くなることを無効化 */
-
-input:-internal-autofill-selected {
-    background-color: var(--form_bg) !important;
+/* input:-internal-autofill-selected {
+    background-color: var(--form_fg) !important;
     color: var(--baseColor) !important;
+} */
+
+.textFormInput {
+
 }
 
 @keyframes fadeout {
@@ -96,10 +104,6 @@ table {
 }
 
 .console {
-    /* display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center; */
     width: 80vw;
     height: 80vh;
     background-color: black;

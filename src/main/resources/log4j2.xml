@@ -14,7 +14,7 @@
    		%mはログメッセージ
    		%nは改行
       -->
-		<Property name="logfile">C:\work\src\broTerm\logs\debug.log</Property>
+		<Property name="logfile">C:\\work\\src\\broTerm\\logs\\debug.log</Property>
 		<!-- <Property name="logfile">./debug.log</Property> -->
 		<!-- <Property name="logfile-archive">./logs/debugLog_%d{yyyy-MM-dd}.log</Property> -->
 		<Property name="logfile-archive">./debug_%d{yyyy-MM-dd-mm-ss}.log</Property>

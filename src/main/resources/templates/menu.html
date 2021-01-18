@@ -17,27 +17,26 @@
             <form id="loginTextForm">
                 <label class="text-label" for="inputText1">ログイン先[入力方式]</label><br />
                 <ruby>
-                    <rb><input class="loginTextForm" size="15" max-length="15" type="text" name="ip" id="ip"></rb>
+                    <rb><input class="textFormInput" size="15" max-length="15" type="text" name="ip" id="ip"></rb>
                     <rt>IPアドレス</rt>
                 </ruby>
                 <ruby>
-                    <rb><input class="textform-port" size="5" max-length="5" type="text" name="port" id="port"
+                    <rb><input class="textFormInput" size="5" max-length="5" type="text" name="port" id="port"
                             value="22"></rb>
                     <rt>ポート番号</rt>
                 </ruby>
                 <ruby>
-                    <rb><input class="textform-hostName" size="12" max-length="32" type="text" name="hostName"
+                    <rb><input class="textFormInput" size="12" max-length="32" type="text" name="hostName"
                             id="hostName">
                     </rb>
                     <rt>ホスト名</rt>
                 </ruby>
                 <ruby>
-                    <rb><input class="textform-passwd" size="12" max-length="32" type="password" name="passwd"
-                            id="passwd">
+                    <rb><input class="textFormInput" size="12" max-length="32" type="password" name="passwd" id="passwd">
                     </rb>
                     <rt>パスワード</rt>
                 </ruby>
-                <button type="button" id="loginTextFormButton" class="btn btn-default">ログイン</button>
+                <button type="button" id="loginTextFormButton" class="btn btn-default" disabled="true">ログイン</button>
             </form>
         </div>
         <form id="loginFromSelectForm">

@@ -10,8 +10,38 @@ $(document).ready(function () {
     });
     // ログインボタンによるAjax通信のイベントリスナー追加
     addLoginButtonEventListener();
+    addButtonValidEvent();
     console.log('[menu.js onload] end');
 });
+
+/**
+ * ボタンの活性化/非活性化イベントを登録する
+ */
+function addButtonValidEvent() {
+$("#ip").change(function() {
+    console.log('changed.');
+});
+
+    $(".textFormInput").each(function (index, obj) {
+        console.log('[textFormInput each object] : ', obj);
+
+        /**
+         * ボタンの活性化/非活性化を行う
+         */
+        obj.change(function() {
+            $(".textFormInput").each(function (index, obj) {
+                // 空項目があれば何も処理しない
+                if (obj.value = '') {
+                    console.log('btn disabled.');
+                    $("#loginTextFormButton").setAttribute("disabled", true);
+                    return;
+                }
+            });
+            console.log('[[[btn abled.]]]');
+            $("#loginTextFormButton").setAttribute("disabled", false);
+        });
+    });
+}
 
 /**
  * 
