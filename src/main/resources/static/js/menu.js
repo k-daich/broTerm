@@ -18,27 +18,29 @@ $(document).ready(function () {
  * ボタンの活性化/非活性化イベントを登録する
  */
 function addButtonValidEvent() {
-$("#ip").change(function() {
-    console.log('changed.');
-});
-
     $(".textFormInput").each(function (index, obj) {
         console.log('[textFormInput each object] : ', obj);
 
         /**
          * ボタンの活性化/非活性化を行う
          */
-        obj.change(function() {
+        obj.addEventListener("change", function () {
+            // フォーム項目に空値が存在するかフラグ
+            var emptyFlg = false;
+
             $(".textFormInput").each(function (index, obj) {
-                // 空項目があれば何も処理しない
-                if (obj.value = '') {
-                    console.log('btn disabled.');
-                    $("#loginTextFormButton").setAttribute("disabled", true);
-                    return;
+                if (obj.value == '') {
+                    // 空項目があればフラグを立てて繰り返し処理を終了させる
+                    // console.log('#' + obj.id + ' is [empty]');
+                    emptyFlg = true;
+                    return false;
+                }
+                else {
+                    // console.log('#' + obj.id + ' is [not empty]');
                 }
             });
-            console.log('[[[btn abled.]]]');
-            $("#loginTextFormButton").setAttribute("disabled", false);
+            // 空項目があればボタンを非活性化する
+            $("#loginTextFormButton").attr("disabled", emptyFlg);
         });
     });
 }
@@ -76,30 +78,24 @@ function addLoginButtonEventListener() {
 
                 // ログインフォームをフェードアウト
                 $('#login-forms').addClass("fadeout");
-                // コンソール表示エリアHTMLの読み込み
-                addConsole();
                 // 成功時の処理
                 // ログ出力
                 console.log('[menu.js ajax] success');
+                console.log('[menu.js ajax data] ', data);
 
-                // ログインフォームをフェードアウト
-                $('#login-forms').addClass("fadeout");
                 // コンソール表示エリアHTMLの読み込み
                 addConsole();
-
             })
             .fail(function () {
                 // 通信が失敗したときの処理
                 // ログ出力
                 alert('[menu.js ajax] fail');
-            })
-            .always(function () {
-                // 通信が完了したときの処理
-                // ログ出力
-                alert('[menu.js ajax] always');
             });
-        // sleep(10000);
-        console.log('[menu.js ajax] end. json_data [' + json_data + ']');
+        // .always(function () {
+        //     // 通信が完了したときの処理
+        //     // ログ出力
+        //     alert('[menu.js ajax] always');
+        // });
     });
 }
 
@@ -113,9 +109,9 @@ function createFromJsonData(form) {
     $(formdata).each(function (index, obj) {
         json_data[obj.name] = obj.value;
     });
-    console.log('$(formId) : ', form);
-    console.log('formdata : ', formdata);
-    console.log('json_data : ', json_data);
+    // console.log('$(formId) : ', form);
+    // console.log('formdata : ', formdata);
+    // console.log('json_data : ', json_data);
     return json_data;
 }
 
