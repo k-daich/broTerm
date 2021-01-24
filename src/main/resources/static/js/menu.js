@@ -48,9 +48,11 @@ function addButtonValidEvent() {
 /**
  * 
  */
-function addConsole() {
+function addConsole(sessionId) {
     // コンソール表示エリアHTMLの読み込み
     $("#console-area").load("/html_parts/console.html");
+    console.log("console-init" , $("#console-init"));
+    $("#console-init").attr("consoleNum" , sessionId);
 }
 
 /**
@@ -84,7 +86,7 @@ function addLoginButtonEventListener() {
                 console.log('[menu.js ajax data] ', data);
 
                 // コンソール表示エリアHTMLの読み込み
-                addConsole();
+                addConsole(data.sessionId);
             })
             .fail(function () {
                 // 通信が失敗したときの処理

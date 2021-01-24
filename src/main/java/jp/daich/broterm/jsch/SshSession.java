@@ -18,6 +18,8 @@ public class SshSession {
 
     private JSch jschSSHChannel;
     private Session sesConnection;
+    private String commandResult;
+    private int sessionSeq = 0;
 
     /**
      * セッションコンストラクタ
@@ -28,6 +30,7 @@ public class SshSession {
      */
     public SshSession(String hostname, int port, String userid, String passwd) {
         jschSSHChannel = new JSch();
+        StringBuilder sBuilder = new StringBuilder();
         Properties config = new Properties();
         config.put("StrictHostKeyChecking", "no");
         // knownHostsがあるなら使う
@@ -42,6 +45,8 @@ public class SshSession {
             sesConnection.setConfig(config);
             sesConnection.setPassword(passwd);
             sesConnection.connect(6000);
+            // TODO: できればログイン時の標準出力を出したい
+            // commandResult = readOutput(sesConnection);
         } catch (JSchException ex) {
             throw new RuntimeException("Errored connect by Jsch.", ex);
         }
@@ -54,32 +59,50 @@ public class SshSession {
      */
     public void sendCommand(String command, Model model) {
         LogUtil.startLog(command);
+        sessionSeq++;
         model.addAttribute("command", command);
         Channel channel = null;
-        StringBuilder sBuilder = new StringBuilder();
+        String commandResult = null;
         try {
             channel = sesConnection.openChannel("exec");
             ((ChannelExec) channel).setCommand(command);
-            InputStream commandOutput = channel.getInputStream();
             channel.connect();
-            int readByte = commandOutput.read();
-            sBuilder.append(readByte);
-            while (readByte != 0xffffffff) {
-                sBuilder.append((char) readByte);
-                readByte = commandOutput.read();
-            }
+            commandResult = readOutput(channel);
         } catch (JSchException | IOException ex) {
             throw new RuntimeException("Errored send command by Jsch.", ex);
         } finally {
-            LogUtil.debug(sBuilder.toString());
+            LogUtil.debug(commandResult);
             LogUtil.endLog();
             if (channel != null) {
                 channel.disconnect();
             }
         }
-        model.addAttribute("commandResult", sBuilder.toString());
+        model.addAttribute("commandResult", commandResult);
     }
 
+    /**
+     * 
+     * @return
+     */
+    public static String readOutput(Channel channel) throws IOException {
+        StringBuilder sBuilder = new StringBuilder();
+        InputStream commandOutput = channel.getInputStream();
+        int readByte = commandOutput.read();
+        sBuilder.append(readByte);
+        while (readByte != 0xffffffff) {
+            sBuilder.append((char) readByte);
+            readByte = commandOutput.read();
+        }
+        return sBuilder.toString();
+    }
+
+    public String getResult(){
+        return this.commandResult;
+    }
+
+    public int getSessionSeq() {
+        return this.sessionSeq;
+    }
     /**
      * セッションのコンフィグを設定する
      *

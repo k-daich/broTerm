@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import jp.daich.broterm.controller.constant.ModelAttributeName;
 import jp.daich.broterm.form.LoginSelectForm;
 import jp.daich.broterm.form.LoginTextForm;
+import jp.daich.broterm.jsch.SshSession;
 import jp.daich.broterm.jsch.session.SshSessionHolder;
 import jp.daich.broterm.util.LogUtil;
 import jp.daich.broterm.util.StringUtils;
@@ -61,13 +62,16 @@ public class MenuController {
         assertFormInfo(loginTextForm);
 
         // SSH接続の実施
-        int sessionSeq = SshSessionHolder.connect(loginTextForm.getIp(), loginTextForm.getPort(),
-                loginTextForm.getHostName(), loginTextForm.getPasswd());
+        SshSession session = new SshSession(loginTextForm.getIp(), loginTextForm.getPort(), loginTextForm.getHostName(),
+                loginTextForm.getPasswd());
+        int sessionSeq = SshSessionHolder.put(session);
 
         Map<String, String> resBody = new HashMap<String, String>() {
             {
                 put("hostName", loginTextForm.getHostName());
-                put("sessionIdSeq", Integer.toString(sessionSeq));
+                put("sessionId", Integer.toString(sessionSeq));
+                put("sessionSeq", Integer.toString(session.getSessionSeq()));
+                put("commandResult", session.getResult());
             }
         };
         LogUtil.endLog();
@@ -85,7 +89,8 @@ public class MenuController {
         // IPアドレスをドット区切りで配列化する
         String[] ipOctets = loginTextForm.getIp().split("\\.");
         if (ipOctets.length != 4) {
-            throw new RuntimeException("Invalid Form @ IpAdress. ip=[" + loginTextForm.getIp() + "],ip octet length = ["+ ipOctets.length + "]");
+            throw new RuntimeException("Invalid Form @ IpAdress. ip=[" + loginTextForm.getIp() + "],ip octet length = ["
+                    + ipOctets.length + "]");
         }
 
         for (String ipOctet : ipOctets) {

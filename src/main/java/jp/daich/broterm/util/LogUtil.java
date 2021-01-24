@@ -11,7 +11,7 @@ public class LogUtil {
     private LogUtil() {
     }
 
-    private static final Logger logger = LogManager.getLogger("LogUtil");
+    private static final Logger logger = LogManager.getLogger();
 
     private static String indent = "";
 
