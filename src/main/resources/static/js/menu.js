@@ -1,4 +1,5 @@
 var consoleIdSeq = 0;
+var consoleData[] = [];
 
 // DOM読み込み時実行処理
 $(document).ready(function () {
@@ -50,9 +51,13 @@ function addButtonValidEvent() {
  */
 function addConsole(sessionId) {
     // コンソール表示エリアHTMLの読み込み
-    $("#console-area").load("/html_parts/console.html");
-    console.log("console-init" , $("#console-init"));
-    $("#console-init").attr("consoleNum" , sessionId);
+    $("#console-area").load("/html_parts/console.html", function() {
+        console.log("console-init" , $("#console-init"));
+        $("#console-init p").each(function (index, obj) {
+            obj.setAttribute("consoleNum" , sessionId);    
+        });
+        $("#console-init").attr("consoleNum" , sessionId).attr("id" , "console-" + sessionId);
+    });
 }
 
 /**
@@ -76,7 +81,7 @@ function addLoginButtonEventListener() {
             .done(function (data) {
                 // 成功時の処理
                 // ログ出力
-                alert('[menu.js ajax] success');
+                // alert('[menu.js ajax] success');
 
                 // ログインフォームをフェードアウト
                 $('#login-forms').addClass("fadeout");

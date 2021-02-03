@@ -54,8 +54,9 @@ public class MenuController {
     }
 
     @RequestMapping(value = "/loginFromTextForm", method = RequestMethod.POST)
-    public ResponseEntity loginFromTextForm(@RequestBody LoginTextForm loginTextForm) {
-        LogUtil.startLog();
+    public String loginFromTextForm(@RequestBody LoginTextForm loginTextForm) {
+        // public ResponseEntity loginFromTextForm(@RequestBody LoginTextForm loginTextForm) {
+            LogUtil.startLog();
         LogUtil.debug(loginTextForm.toString());
 
         // 入力フォームの内容チェック
@@ -66,16 +67,17 @@ public class MenuController {
                 loginTextForm.getPasswd());
         int sessionSeq = SshSessionHolder.put(session);
 
-        Map<String, String> resBody = new HashMap<String, String>() {
-            {
-                put("hostName", loginTextForm.getHostName());
-                put("sessionId", Integer.toString(sessionSeq));
-                put("sessionSeq", Integer.toString(session.getSessionSeq()));
-                put("commandResult", session.getResult());
-            }
-        };
         LogUtil.endLog();
-        return new ResponseEntity<Map>(resBody, HttpStatus.OK);
+        return "console";
+        // Map<String, String> resBody = new HashMap<String, String>() {
+        //     {
+        //         put("hostName", loginTextForm.getHostName());
+        //         put("sessionId", Integer.toString(sessionSeq));
+        //         put("sessionSeq", Integer.toString(session.getSessionSeq()));
+        //         put("commandResult", session.getResult());
+        //     }
+        // };
+        // return new ResponseEntity<Map>(resBody, HttpStatus.OK);
     }
 
     private void assertFormInfo(LoginTextForm loginTextForm) {
